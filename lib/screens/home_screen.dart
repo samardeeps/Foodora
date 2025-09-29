@@ -8,8 +8,11 @@ import '../blocs/restaurant/restaurant_event.dart';
 import '../widgets/restaurants_card.dart';
 import '../widgets/custom_nav_bar.dart';
 import '../blocs/cart/cart_bloc.dart';
+import 'my_orders_screen.dart';
+import '../models/order.dart';
 
 class HomeScreen extends StatefulWidget {
+  static final List<Order> confirmedOrders = [];
   const HomeScreen({super.key});
 
   @override
@@ -21,38 +24,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Foodora'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // TODO: Implement search functionality
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              // TODO: Implement filter functionality
-            },
-          ),
-        ],
-      ),
-      body: BlocBuilder<RestaurantBloc, RestaurantState>(
+    Widget body;
+    if (_currentIndex == 1) {
+      body = MyOrdersScreen(orders: HomeScreen.confirmedOrders);
+    } else {
+      body = BlocBuilder<RestaurantBloc, RestaurantState>(
         builder: (context, state) {
           switch (state.status) {
             case RestaurantStatus.initial:
               return const Center(child: Text('No restaurants to display'));
-
             case RestaurantStatus.loading:
               return const Center(child: CircularProgressIndicator());
-
             case RestaurantStatus.loaded:
               if (state.filteredRestaurants.isEmpty) {
                 return const Center(child: Text('No restaurants found'));
               }
-
               return RefreshIndicator(
                 onRefresh: () async {
                   context.read<RestaurantBloc>().add(LoadRestaurants());
@@ -84,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               );
-
             case RestaurantStatus.error:
               return Center(
                 child: Column(
@@ -106,14 +91,35 @@ class _HomeScreenState extends State<HomeScreen> {
               );
           }
         },
+      );
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Foodora'),
+        actions: [
+          if (_currentIndex != 1) ...[
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // TODO: Implement search functionality
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () {
+                // TODO: Implement filter functionality
+              },
+            ),
+          ],
+        ],
       ),
+      body: body,
       bottomNavigationBar: CustomNavBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
-          // TODO: Implement navigation to different screens
         },
       ),
     );

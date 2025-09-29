@@ -10,6 +10,8 @@ import 'package:foodora/utils/app_theme.dart';
 import 'package:foodora/repositories/restaurant_repositories.dart';
 import 'package:foodora/screens/home_screen.dart';
 import 'package:foodora/blocs/cart/cart_bloc.dart';
+import 'package:foodora/models/order.dart';
+import 'package:foodora/screens/order_confirmation_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -55,6 +57,13 @@ class MainApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           title: 'Foodora',
           home: const HomeScreen(),
+          routes: {
+            '/order-confirmation': (context) {
+              final order =
+                  ModalRoute.of(context)?.settings.arguments as Order?;
+              return OrderConfirmationScreen(order: order!);
+            },
+          },
         ),
       ),
     );

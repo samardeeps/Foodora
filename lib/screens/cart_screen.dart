@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/cart/cart_bloc.dart';
 import '../blocs/cart/cart_state.dart';
 import '../widgets/menu_item_card.dart';
+import '../models/order.dart';
+import 'order_screen.dart';
+import '../blocs/order/order_bloc.dart';
+import '../repositories/order_repository.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -68,6 +72,36 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final cartItems = state.items.entries
+                          .map((e) => CartItem(item: e.key, quantity: e.value))
+                          .toList();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (_) =>
+                                OrderBloc(orderRepository: OrderRepository()),
+                            child: OrderScreen(
+                              restaurant: cartItems.isNotEmpty
+                                  ? cartItems.first.item.category
+                                  : '',
+                              items: cartItems,
+                              totalAmount: state.total,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Confirm Order'),
+                  ),
+                ),
+              ),
             ],
           );
         },
