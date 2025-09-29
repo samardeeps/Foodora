@@ -7,6 +7,7 @@ import '../blocs/restaurant/restaurant_state.dart';
 import '../blocs/restaurant/restaurant_event.dart';
 import '../widgets/restaurants_card.dart';
 import '../widgets/custom_nav_bar.dart';
+import '../blocs/cart/cart_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,11 +64,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     return RestaurantCard(
                       restaurant: restaurant,
                       onTap: () {
+                        final cartBloc = context.read<CartBloc>();
+                        debugPrint(
+                          'Passing CartBloc to RestaurantDetailsScreen: $cartBloc',
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                RestaurantDetailsScreen(restaurant: restaurant),
+                            builder: (context) => BlocProvider.value(
+                              value: cartBloc,
+                              child: RestaurantDetailsScreen(
+                                restaurant: restaurant,
+                              ),
+                            ),
                           ),
                         );
                       },
