@@ -157,6 +157,4 @@ class OrderScreen extends StatelessWidget {
       (sum, item) => sum + item.item.price * item.quantity,
     );
   }
-
-  // deliveryFee and handlingFee now come from CartState
 }

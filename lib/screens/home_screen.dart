@@ -731,24 +731,11 @@ class _HomeScreenState extends State<HomeScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Logo and Welcome Text
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 padding: const EdgeInsets.all(0),
-                                // decoration: BoxDecoration(
-                                //   color: Colors
-                                //       .transparent, // or keep white if you want chip-style
-                                //   borderRadius: BorderRadius.circular(12),
-                                //   boxShadow: [
-                                //     BoxShadow(
-                                //       color: Colors.black.withOpacity(0.1),
-                                //       blurRadius: 8,
-                                //       offset: const Offset(0, 2),
-                                //     ),
-                                //   ],
-                                // ),
                                 child: Image.asset(
                                   'assets/images/logo1.png',
                                   height: 40,
@@ -779,7 +766,6 @@ class _HomeScreenState extends State<HomeScreen>
                             ],
                           ),
 
-                          // Search and Notification Icons
                           Row(
                             children: [
                               Container(
@@ -806,9 +792,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     Icons.notifications_outlined,
                                     color: Colors.white,
                                   ),
-                                  onPressed: () {
-                                    // TODO: Navigate to notifications
-                                  },
+                                  onPressed: () {},
                                 ),
                               ),
                             ],
@@ -816,7 +800,6 @@ class _HomeScreenState extends State<HomeScreen>
                         ],
                       ),
                     ] else ...[
-                      // Expanded Search Bar
                       Row(
                         children: [
                           IconButton(
@@ -953,7 +936,6 @@ class _HomeScreenState extends State<HomeScreen>
                 },
                 child: ListView(
                   children: [
-                    // Search Results Info
                     if (_searchController.text.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -967,7 +949,6 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                     if (_searchController.text.isEmpty) ...[
-                      // Banner Carousel
                       SizedBox(
                         height: 200,
                         child: Column(
@@ -1038,7 +1019,7 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ),
                             const SizedBox(height: 12),
-                            // Page Indicator
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: List.generate(
@@ -1064,7 +1045,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ],
                         ),
                       ),
-                      // Restaurants Section Header
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -1079,9 +1060,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             TextButton(
-                              onPressed: () {
-                                // TODO: Show all restaurants
-                              },
+                              onPressed: () {},
                               child: const Text('View All'),
                             ),
                           ],
@@ -1089,7 +1068,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ] else
                       const SizedBox(height: 8),
-                    // Restaurants List
+
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

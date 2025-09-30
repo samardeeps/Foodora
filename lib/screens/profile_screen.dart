@@ -1,46 +1,3 @@
-// import 'package:flutter/material.dart';
-// import '../widgets/custom_nav_bar.dart';
-
-// class ProfileScreen extends StatefulWidget {
-//   const ProfileScreen({super.key});
-
-//   @override
-//   State<ProfileScreen> createState() => _ProfileScreenState();
-// }
-
-// class _ProfileScreenState extends State<ProfileScreen> {
-//   int _currentIndex = 3; // Profile is index 3
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Profile')),
-//       body: const Center(child: Text('Profile page (blank)')),
-//       bottomNavigationBar: CustomNavBar(
-//         currentIndex: _currentIndex,
-//         onTap: (index) {
-//           setState(() {
-//             _currentIndex = index;
-//           });
-//           if (index != 3) {
-//             switch (index) {
-//               case 0:
-//                 Navigator.of(context).pushReplacementNamed('/home');
-//                 break;
-//               case 1:
-//                 // Handle orders tab
-//                 break;
-//               case 2:
-//                 Navigator.of(context).pushReplacementNamed('/cart');
-//                 break;
-//             }
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import '../widgets/custom_nav_bar.dart';
 
@@ -52,8 +9,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _currentIndex = 3; // Profile tab is index 3
-
+  int _currentIndex = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Profile header with avatar + name
             Center(
               child: Column(
                 children: [
@@ -74,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     radius: 50,
                     backgroundColor: Theme.of(context).primaryColor,
                     backgroundImage: const AssetImage(
-                      "assets/images/profile_placeholder.jpg", // replace with user image
+                      "assets/images/profile_placeholder.jpg",
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -95,7 +50,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            // Profile options list
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -162,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.of(context).pushReplacementNamed('/home');
                 break;
               case 1:
-                // TODO: Navigate to Orders
+                Navigator.of(context).pushReplacementNamed('/orders');
                 break;
               case 2:
                 Navigator.of(context).pushReplacementNamed('/cart');

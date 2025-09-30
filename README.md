@@ -29,6 +29,12 @@ Error handling with proper fallback states
 
 Auto-scrolling promotional banners on Home Screen
 
+Add to cart with correct handling 
+
+Order managment 
+
+Empty cart for new order
+
 🛠️ Tech Stack
 
 Framework: Flutter
