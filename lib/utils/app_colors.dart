@@ -29,10 +29,10 @@ class AppColors {
 
   // Rating Colors
   static const Color starYellow = Color(0xFFFFC107);
-  
+
   // Card Colors
   static const Color cardShadow = Color(0x1F000000);
-  
+
   // Divider Colors
   static const Color divider = Color(0xFFE0E0E0);
 }

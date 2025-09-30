@@ -11,12 +11,16 @@ class OrderScreen extends StatelessWidget {
   final String restaurant;
   final List<CartItem> items;
   final double totalAmount;
+  final double deliveryFee;
+  final double handlingFee;
 
   const OrderScreen({
     super.key,
     required this.restaurant,
     required this.items,
     required this.totalAmount,
+    required this.deliveryFee,
+    required this.handlingFee,
   });
 
   @override
@@ -53,7 +57,7 @@ class OrderScreen extends StatelessWidget {
                           title: Text(cartItem.item.name),
                           subtitle: Text('Qty: ${cartItem.quantity}'),
                           trailing: Text(
-                            '4${(cartItem.item.price * cartItem.quantity).toStringAsFixed(2)}',
+                            '₹${(cartItem.item.price * cartItem.quantity).toStringAsFixed(2)}',
                           ),
                         ),
                       )
@@ -63,13 +67,65 @@ class OrderScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Total: 4${totalAmount.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Subtotal:', style: TextStyle(fontSize: 16)),
+                        Text(
+                          '₹${_getSubtotal(items).toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Delivery Fee:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          '₹${deliveryFee.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Handling Fee:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          '₹${handlingFee.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 24, thickness: 1),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Total:',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '₹${totalAmount.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
@@ -87,10 +143,20 @@ class OrderScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 46),
             ],
           );
         },
       ),
     );
   }
+
+  double _getSubtotal(List<CartItem> items) {
+    return items.fold(
+      0.0,
+      (sum, item) => sum + item.item.price * item.quantity,
+    );
+  }
+
+  // deliveryFee and handlingFee now come from CartState
 }

@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:foodora/widgets/custom_nav_bar.dart';
 import '../models/order.dart';
 
-class MyOrdersScreen extends StatelessWidget {
+class MyOrdersScreen extends StatefulWidget {
   final List<Order> orders;
 
   const MyOrdersScreen({super.key, required this.orders});
 
   @override
+  State<MyOrdersScreen> createState() => _MyOrdersScreenState();
+}
+
+class _MyOrdersScreenState extends State<MyOrdersScreen> {
+  int _currentIndex = 1;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('My Orders')),
-      body: orders.isEmpty
+      bottomNavigationBar: CustomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+      body: widget.orders.isEmpty
           ? const Center(child: Text('No confirmed orders yet.'))
           : ListView.builder(
-              itemCount: orders.length,
+              itemCount: widget.orders.length,
               itemBuilder: (context, index) {
-                final order = orders[index];
+                final order = widget.orders[index];
                 return Card(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -24,7 +39,7 @@ class MyOrdersScreen extends StatelessWidget {
                   child: ListTile(
                     title: Text('Order #${order.id}'),
                     subtitle: Text(
-                      'Restaurant: ${order.restaurant}\nTotal: \u0024${order.totalAmount.toStringAsFixed(2)}',
+                      'Restaurant: ${order.restaurant}\nTotal: ₹${order.totalAmount.toStringAsFixed(2)}',
                     ),
                     trailing: Icon(
                       order.status == OrderStatus.success

@@ -18,8 +18,9 @@ class OrderRepository {
         totalAmount: totalAmount,
         status: OrderStatus.success,
       );
-    } else {
-      throw Exception('Failed to place order. Please try again.');
     }
+    // else {
+    //   throw Exception('Failed to place order. Please try again.');
+    // }
   }
 }

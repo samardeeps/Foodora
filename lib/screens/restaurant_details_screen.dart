@@ -127,12 +127,12 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                   const SizedBox(height: 8),
                   _buildInfoRow(
                     Icons.motorcycle,
-                    'Delivery Fee: \$${widget.restaurant.deliveryFee.toStringAsFixed(2)}',
+                    'Delivery Fee: ₹${widget.restaurant.deliveryFee.toStringAsFixed(2)}',
                   ),
                   const SizedBox(height: 8),
                   _buildInfoRow(
                     Icons.shopping_bag,
-                    'Minimum Order: \$${widget.restaurant.minimumOrder.toStringAsFixed(2)}',
+                    'Minimum Order: ₹${widget.restaurant.minimumOrder.toStringAsFixed(2)}',
                   ),
                   const SizedBox(height: 8),
                   _buildInfoRow(Icons.location_on, widget.restaurant.address),
@@ -252,7 +252,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                                       ],
                                     ),
                                     Text(
-                                      '\$${cartState.total.toStringAsFixed(2)}',
+                                      '₹${cartState.total.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -281,8 +281,6 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
           setState(() {
             _currentIndex = index;
           });
-          // TODO: Implement navigation based on index
-          // 0: Home, 1: Search, 2: Orders, 3: Profile
         },
       ),
     );

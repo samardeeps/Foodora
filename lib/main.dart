@@ -9,9 +9,14 @@ import 'package:foodora/repositories/menu_item_repository.dart'
 import 'package:foodora/utils/app_theme.dart';
 import 'package:foodora/repositories/restaurant_repositories.dart';
 import 'package:foodora/screens/home_screen.dart';
+import 'package:foodora/screens/cart_screen.dart';
+import 'package:foodora/screens/profile_screen.dart';
 import 'package:foodora/blocs/cart/cart_bloc.dart';
 import 'package:foodora/models/order.dart';
 import 'package:foodora/screens/order_confirmation_screen.dart';
+import 'package:foodora/screens/splash_screen.dart';
+import 'package:foodora/blocs/splash/splash_bloc.dart';
+import 'package:foodora/blocs/splash/splash_event.dart';
 
 void main() {
   runApp(const MainApp());
@@ -22,7 +27,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Wrap the entire MaterialApp with providers
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<RestaurantRepository>(
@@ -56,8 +60,14 @@ class MainApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           title: 'Foodora',
-          home: const HomeScreen(),
+          home: BlocProvider(
+            create: (context) => SplashBloc()..add(const InitializeSplash()),
+            child: const SplashScreen(),
+          ),
           routes: {
+            '/home': (context) => const HomeScreen(),
+            '/cart': (context) => const CartScreen(),
+            '/profile': (context) => const ProfileScreen(),
             '/order-confirmation': (context) {
               final order =
                   ModalRoute.of(context)?.settings.arguments as Order?;

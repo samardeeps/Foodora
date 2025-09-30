@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/menu_items.dart';
 import '../blocs/cart/cart_bloc.dart';
 import '../blocs/cart/cart_event.dart';
-import '../blocs/cart/cart_state.dart';
 
 class MenuItemCard extends StatelessWidget {
   final MenuItem item;
@@ -52,7 +51,7 @@ class MenuItemCard extends StatelessWidget {
                   },
                 ),
                 const SizedBox(width: 4),
-                Text('4${item.price.toStringAsFixed(2)}'),
+                Text('₹${item.price.toStringAsFixed(2)}'),
               ],
             ),
           ),

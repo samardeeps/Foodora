@@ -3,18 +3,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/cart/cart_bloc.dart';
 import '../blocs/cart/cart_state.dart';
 import '../widgets/menu_item_card.dart';
+import '../widgets/custom_nav_bar.dart';
 import '../models/order.dart';
 import 'order_screen.dart';
 import '../blocs/order/order_bloc.dart';
 import '../repositories/order_repository.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Your Cart')),
+      bottomNavigationBar: CustomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state.items.isEmpty) {
@@ -40,14 +57,14 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'View Cart',
+                      ' ',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'Total: \$${state.total.toStringAsFixed(2)}',
+                      'Total: ₹${state.total.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -63,10 +80,10 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Delivery Fee: \$${state.deliveryFee.toStringAsFixed(2)}',
+                      'Delivery Fee: ₹${state.deliveryFee.toStringAsFixed(2)}',
                     ),
                     Text(
-                      'Handling Fee: \$${state.handlingFee.toStringAsFixed(2)}',
+                      'Handling Fee: ₹${state.handlingFee.toStringAsFixed(2)}',
                     ),
                   ],
                 ),
@@ -93,6 +110,8 @@ class CartScreen extends StatelessWidget {
                                   : '',
                               items: cartItems,
                               totalAmount: state.total,
+                              deliveryFee: state.deliveryFee,
+                              handlingFee: state.handlingFee,
                             ),
                           ),
                         ),
@@ -102,6 +121,7 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
             ],
           );
         },
