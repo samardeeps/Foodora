@@ -4,12 +4,8 @@ This project is developed as part of the Nestafar Internship Assignment.
 The task was to implement a single workflow for ordering food from local restaurants, following clean architecture principles, realistic steps, and state management using BloC.
 
 📸 Screenshots
-Home Screen	Restaurant Details	Cart & Orders
-
-	
-	
-
-(Add your own screenshots in assets/screenshots/ and update paths here.)
+ Attached Scren recording in the chat
+ https://drive.google.com/drive/folders/1mrF1CrrRYKN2SHtachwly_sWO07j08ra?usp=sharing
 
 🚀 Features
 
